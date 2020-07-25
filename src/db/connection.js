@@ -1,24 +1,11 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
 
-const con = mysql.createConnection({
-  host: '', // Ex: localhost
-  user: '', // Ex: user 
-  password: '', // Ex: user123
-  database: '' // Ex: node_mysql
+var pool = mysql.createPool({
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
 });
 
-con.connect((err) => {
-  if (err) {
-    console.log('Erro connecting to database...', err)
-    return
-  }
-  console.log('Connection established!')
-})
-
-con.end((err) => {
-  if(err) {
-    console.log('Erro to finish connection...', err)
-    return 
-  }
-  console.log('The connection was finish...')
-});
+exports.pool = pool;
